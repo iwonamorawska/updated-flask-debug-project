@@ -1,3 +1,4 @@
+from flask_sqlalchemy import SQLAlchemy
 from debug_project_app import app, Message, mail
 from flask import render_template, request, redirect, url_for
 
@@ -9,18 +10,18 @@ from debug_project_app.models import User, Post, check_password_hash
 
 # Import for Flask Login - login_required, login_user,current_user, logout_user
 from flask_login import login_required,login_user, current_user,logout_user
-
+db=SQLAlchemy()
 # Home Route
 @app.route('/')
 def home():
     posts = Post.query.all
-    returnrender_template("homes.html", posts = posts)
+    return render_template('home.html', posts = posts)
 
 # Register Route
 @app.route('/register', methods=['GET','POST'])
 def register():
     form = UserInfoForm()
-    if request.method = 'POST' and form.validate():
+    if request.method == 'POST' and form.validate():
         # Get Information
         username = form.username.data
         password = form.password.data

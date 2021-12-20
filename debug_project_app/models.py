@@ -25,10 +25,10 @@ class User(db.Model,UserMixin):
     def __init__(self,username,email,password):
         self.username = username
         self.email = email
-        self.password = self.set_password(password)
+        self.password = generate_password_hash(password)
 
-        def set_password(self,password):
-            self.pw_hash = generate_password_hash(password)
+        def check_password_hash(self,password):
+            self.pw_hash = check_password_hash(password)
             return self.pw_hash
 
     def __repr__(self):
